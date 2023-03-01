@@ -298,7 +298,7 @@ public class UserApi extends HttpServlet {
                 break;
             case "deleteUser":
                 int memberId = Integer.parseInt(req.getParameter("memberID"));
-                basicResponse = deleteUser(req,memberId);
+                basicResponse = deleteUser(memberId);
                 break;
             case "goToEditUser":
                 memberID = req.getParameter("memberID");
@@ -325,12 +325,11 @@ public class UserApi extends HttpServlet {
         return basicResponse;
     }
 
-    private BasicResponse deleteUser(HttpServletRequest req,int memberId){
+    private BasicResponse deleteUser(int memberId){
         BasicResponse basicResponse = new BasicResponse();
         UserService userService = new UserService();
 
-        AuthenHanding authenHanding = new AuthenHanding();
-        if(authenHanding.getRoleOfUser(req) == AuthorList.ADMIN.getValue()){
+        if(user.getRole().getId() == AuthorList.ADMIN.getValue()){
             if(userService.checkExistingOfTaskByUserId(memberId)){
                 basicResponse.setStatusCode(400);
                 basicResponse.setMessage("Không thể xóa thành viên này");

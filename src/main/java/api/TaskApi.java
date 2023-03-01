@@ -68,19 +68,18 @@ public class TaskApi extends HttpServlet {
         user = (UserModel) basicResponse.getData();
 
         // Lấy toàn bộ danh sách task
-        basicResponse = getAllTask(req);
+        basicResponse = getAllTask();
         responseList.add(basicResponse);
 
         return responseList;
     }
 
-    private BasicResponse getAllTask(HttpServletRequest req){
+    private BasicResponse getAllTask(){
         BasicResponse basicResponse = new BasicResponse();
         TaskService taskService = new TaskService();
         List<TaskModel> taskList;
 
-        AuthenHanding authenHanding = new AuthenHanding();
-        if(authenHanding.getRoleOfUser(req) == AuthorList.ADMIN.getValue()){
+        if(user.getRole().getId() == AuthorList.ADMIN.getValue()){
             taskList = taskService.getAllTask();
         } else {
             taskList = taskService.getAllTaskByLeaderId(user.getId());

@@ -71,19 +71,18 @@ public class ProjectApi extends HttpServlet {
         user = (UserModel) basicResponse.getData();
 
         // Lấy toàn bộ danh sách user
-        basicResponse = getAllProject(req);
+        basicResponse = getAllProject();
         responseList.add(basicResponse);
 
         return responseList;
     }
 
-    private BasicResponse getAllProject(HttpServletRequest req){
+    private BasicResponse getAllProject(){
         BasicResponse basicResponse = new BasicResponse();
         ProjectService projectService = new ProjectService();
         List<ProjectModel> listProject;
 
-        AuthenHanding authenHanding = new AuthenHanding();
-        if(authenHanding.getRoleOfUser(req) == AuthorList.ADMIN.getValue()){
+        if(user.getRole().getId() == AuthorList.ADMIN.getValue()){
             listProject = projectService.getAllProject();
         } else {
             listProject = projectService.getAllProjectByLeaderId(user.getId());
@@ -154,7 +153,7 @@ public class ProjectApi extends HttpServlet {
         responseList.add(basicResponse);
 
         // Quản lý việc chỉnh sửa người quản lý của dự án
-        basicResponse = manageLeaderEdit(req);
+        basicResponse = manageLeaderEdit();
         responseList.add(basicResponse);
 
         projectID = null;
@@ -179,11 +178,10 @@ public class ProjectApi extends HttpServlet {
         return basicResponse;
     }
 
-    private BasicResponse manageLeaderEdit(HttpServletRequest req){
+    private BasicResponse manageLeaderEdit(){
         BasicResponse basicResponse = new BasicResponse();
 
-        AuthenHanding authenHanding = new AuthenHanding();
-        if(authenHanding.getRoleOfUser(req) == AuthorList.ADMIN.getValue()){
+        if(user.getRole().getId() == AuthorList.ADMIN.getValue()){
             basicResponse.setStatusCode(200);
             basicResponse.setMessage("Có quyền thay đổi người quản lý của dự án");
             basicResponse.setData(true);
