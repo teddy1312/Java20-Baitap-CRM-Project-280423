@@ -1,8 +1,5 @@
 package controller;
 
-import filter.AuthenHanding;
-import filter.AuthorList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
