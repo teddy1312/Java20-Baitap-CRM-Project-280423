@@ -1,8 +1,6 @@
 package repository;
 
 import config.MySqlConfig;
-import model.ProjectColumn;
-import model.ProjectModel;
 import model.StatusColumn;
 import model.StatusModel;
 
@@ -17,7 +15,7 @@ public class StatusRepository {
         List<StatusModel> list = new ArrayList<>();
 
         Connection connection = MySqlConfig.getMySQLConnection();
-        String query = "SELECT * FROM crm_app.statuses";
+        String query = "SELECT * FROM statuses AS s ORDER BY s.id";
 
         try {
             PreparedStatement statement = connection.prepareStatement(query);

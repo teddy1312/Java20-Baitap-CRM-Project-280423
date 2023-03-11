@@ -154,7 +154,7 @@ public class ProjectRepository {
     public int deleteProjectById(int projectId){
         int result = -1;
         Connection connection = MySqlConfig.getMySQLConnection();
-        String query = "DELETE FROM crm_app.projects AS p WHERE p.id = ? ";
+        String query = "DELETE FROM projects AS p WHERE p.id = ? ";
 
         try {
             PreparedStatement statement = connection.prepareStatement(query);
@@ -181,7 +181,7 @@ public class ProjectRepository {
     public int addProject(ProjectModel newProject){
         int result = -1;
         Connection connection = MySqlConfig.getMySQLConnection();
-        String query = "INSERT INTO crm_app.projects (name,start_date,end_date,leader_id) VALUES (?,?,?,?)";
+        String query = "INSERT INTO projects (name,start_date,end_date,leader_id) VALUES (?,?,?,?)";
 
         try {
             PreparedStatement statement = connection.prepareStatement(query);
@@ -211,7 +211,7 @@ public class ProjectRepository {
     public int updateProjectById(ProjectModel project){
         int result = -1;
         Connection connection = MySqlConfig.getMySQLConnection();
-        String query = "UPDATE crm_app.projects AS p SET p.name = ?,p.start_date = ?,p.end_date = ?,p.leader_id = ? " +
+        String query = "UPDATE projects AS p SET p.name = ?,p.start_date = ?,p.end_date = ?,p.leader_id = ? " +
                             "WHERE p.id = ?";
         try {
             PreparedStatement statement = connection.prepareStatement(query);

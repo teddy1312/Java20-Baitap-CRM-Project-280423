@@ -74,7 +74,7 @@ public class TaskRepository {
         List<TaskModel> taskList = new ArrayList<>();
         Connection connection = MySqlConfig.getMySQLConnection();
         String query = "SELECT t.id,t.name,p.name AS projectName,u.fullname AS userName," +
-                "t.start_date,t.end_date,s.name AS status FROM crm_app.tasks AS t " +
+                "t.start_date,t.end_date,s.name AS status FROM tasks AS t " +
                 "LEFT JOIN users AS u ON t.user_id=u.id " +
                 "LEFT JOIN projects AS p ON t.project_id=p.id " +
                 "LEFT JOIN statuses AS s ON t.status_id=s.id ORDER BY t.project_id";
@@ -121,7 +121,7 @@ public class TaskRepository {
         List<TaskModel> taskList = new ArrayList<>();
         Connection connection = MySqlConfig.getMySQLConnection();
         String query = "SELECT t.id,t.name,p.name AS projectName,u.fullname AS userName," +
-                "t.start_date,t.end_date,s.name AS status FROM crm_app.tasks AS t " +
+                "t.start_date,t.end_date,s.name AS status FROM tasks AS t " +
                 "LEFT JOIN users AS u ON t.user_id=u.id " +
                 "LEFT JOIN projects AS p ON t.project_id=p.id " +
                 "LEFT JOIN statuses AS s ON t.status_id=s.id WHERE p.leader_id=? ORDER BY t.project_id";
@@ -375,7 +375,7 @@ public class TaskRepository {
     public int updateStatusOfTask(int taskID, int statusID){
         int result = -1;
         Connection connection = MySqlConfig.getMySQLConnection();
-        String query = "UPDATE crm_app.tasks SET status_id = ? WHERE id = ?";
+        String query = "UPDATE tasks SET status_id = ? WHERE id = ?";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1,statusID);
@@ -444,7 +444,7 @@ public class TaskRepository {
     public int countTaskByUserId(int userId){
         int count = 0;
         Connection connection = MySqlConfig.getMySQLConnection();
-        String query = "SELECT count(*) as count FROM crm_app.tasks AS t WHERE t.user_id = ?";
+        String query = "SELECT count(*) as count FROM tasks AS t WHERE t.user_id = ?";
 
         try {
             PreparedStatement statement = connection.prepareStatement(query);
@@ -473,7 +473,7 @@ public class TaskRepository {
     public int countTaskByProjectId(int projectId){
         int count = 0;
         Connection connection = MySqlConfig.getMySQLConnection();
-        String query = "SELECT count(*) as count FROM crm_app.tasks AS t WHERE t.project_id = ?";
+        String query = "SELECT count(*) as count FROM tasks AS t WHERE t.project_id = ?";
 
         try {
             PreparedStatement statement = connection.prepareStatement(query);
@@ -502,7 +502,7 @@ public class TaskRepository {
     public List<Integer> getTaskStatusByProjectId(int projectId){
         List<Integer> list = new ArrayList<>();
         Connection connection = MySqlConfig.getMySQLConnection();
-        String query = "SELECT t.status_id FROM crm_app.tasks AS t WHERE t.project_id = ?";
+        String query = "SELECT t.status_id FROM tasks AS t WHERE t.project_id = ?";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1,projectId);

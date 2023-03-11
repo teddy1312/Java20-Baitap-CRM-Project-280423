@@ -14,7 +14,7 @@ public class RoleRepository {
     public List<RoleModel> getAllRole(){
         List<RoleModel> listRoe = new ArrayList<>();
         Connection connection = MySqlConfig.getMySQLConnection();
-        String query = "SELECT * FROM crm_app.roles AS r ORDER BY r.id";
+        String query = "SELECT * FROM roles AS r ORDER BY r.id";
 
         try {
             PreparedStatement statement = connection.prepareStatement(query);
@@ -47,7 +47,7 @@ public class RoleRepository {
     public RoleModel getRole(int roleId){
         RoleModel roleModel = new RoleModel();
         Connection connection = MySqlConfig.getMySQLConnection();
-        String query = "SELECT * FROM crm_app.roles AS r WHERE r.id = ?";
+        String query = "SELECT * FROM roles AS r WHERE r.id = ?";
 
         try {
             PreparedStatement statement = connection.prepareStatement(query);
@@ -78,7 +78,7 @@ public class RoleRepository {
     public int addRole(RoleModel newRole){
         int result = -1;
         Connection connection = MySqlConfig.getMySQLConnection();
-        String query = "INSERT INTO crm_app.roles (name,description) VALUES (?,?)";
+        String query = "INSERT INTO roles (name,description) VALUES (?,?)";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1,newRole.getName());
@@ -105,7 +105,7 @@ public class RoleRepository {
     public int deleteRoleById(int roleID){
         int result = -1;
         Connection connection = MySqlConfig.getMySQLConnection();
-        String query = "DELETE FROM crm_app.roles WHERE id = ?";
+        String query = "DELETE FROM roles WHERE id = ?";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1,roleID);
@@ -131,7 +131,7 @@ public class RoleRepository {
     public int updateRoleById(RoleModel role){
         int result = -1;
         Connection connection = MySqlConfig.getMySQLConnection();
-        String query = "UPDATE crm_app.roles AS r SET r.name = ?,r.description = ? WHERE r.id = ?";
+        String query = "UPDATE roles AS r SET r.name = ?,r.description = ? WHERE r.id = ?";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1,role.getName());

@@ -271,32 +271,30 @@ public class ProjectApi extends HttpServlet {
 
     private List<TaskByMemberModel> arrangeTaskByMember(List<TaskModel> inputList){
         List<TaskByMemberModel> resultList = new ArrayList<>();
+
         if(inputList.size() > 0){
-            for(int i=0,j=0;i<inputList.size();i++){
+            for(int i=0;i<inputList.size();i++){
                 boolean isDuplicate = false;
                 if(i != 0){
-                    for(int k=i-1;k>=0;k--){
-                        if(inputList.get(i).getUser().getId() == inputList.get(k).getUser().getId()){
-                            j=k;
+                    for(int k=0;k<resultList.size();k++){
+                        if(inputList.get(i).getUser().getId() == resultList.get(k).getUser().getId()){
+                            resultList.get(k).getTaskList().add(inputList.get(i));
                             isDuplicate = true;
                             break;
                         }
                     }
                 }
                 if(!isDuplicate){
-                    j=i;
-                    TaskByMemberModel task = new TaskByMemberModel();
+                    TaskByMemberModel taskByMember = new TaskByMemberModel();
+
+                    UserModel user = inputList.get(i).getUser();
+                    taskByMember.setUser(user);
 
                     List<TaskModel> taskList = new ArrayList<>();
                     taskList.add(inputList.get(i));
-                    task.setTaskList(taskList);
+                    taskByMember.setTaskList(taskList);
 
-                    UserModel member = inputList.get(j).getUser();
-                    task.setUser(member);
-
-                    resultList.add(task);
-                } else {
-                    resultList.get(j).getTaskList().add(inputList.get(i));
+                    resultList.add(taskByMember);
                 }
             }
         } else {

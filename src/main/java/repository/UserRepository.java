@@ -17,7 +17,7 @@ public class UserRepository {
     public int countUserByEmailNPassword(String email, String password){
         int count = 0;
         Connection connection = MySqlConfig.getMySQLConnection();
-        String query = "SELECT count(*) as count FROM crm_app.users u WHERE u.email = ? and u.password = ?";
+        String query = "SELECT count(*) as count FROM users u WHERE u.email = ? and u.password = ?";
 
         try {
             PreparedStatement statement = connection.prepareStatement(query);
@@ -123,7 +123,7 @@ public class UserRepository {
     public int addUser(UserModel newUser){
         int result = -1;
         Connection connection = MySqlConfig.getMySQLConnection();
-        String query = "INSERT INTO crm_app.users (email,password,fullname,avatar,role_id) " +
+        String query = "INSERT INTO users (email,password,fullname,avatar,role_id) " +
                 "VALUES (?,?,?,?,?)";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
@@ -154,7 +154,7 @@ public class UserRepository {
     public int deleteUserById(int userID){
         int result = -1;
         Connection connection = MySqlConfig.getMySQLConnection();
-        String query = "DELETE FROM crm_app.users WHERE id = ?";
+        String query = "DELETE FROM users WHERE id = ?";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1,userID);
@@ -182,7 +182,7 @@ public class UserRepository {
 
         Connection connection = MySqlConfig.getMySQLConnection();
         String query = "SELECT u.id,u.email,u.password,u.fullname,u.avatar,u.role_id,r.name AS role_name " +
-                "FROM crm_app.users AS u LEFT JOIN roles AS r ON u.role_id = r.id WHERE u.id = ?";
+                "FROM users AS u LEFT JOIN roles AS r ON u.role_id = r.id WHERE u.id = ?";
 
         try {
             PreparedStatement statement = connection.prepareStatement(query);
@@ -220,7 +220,7 @@ public class UserRepository {
     public int updateUserById(UserModel user){
         int result = -1;
         Connection connection = MySqlConfig.getMySQLConnection();
-        String query = "UPDATE crm_app.users AS u SET u.email = ?, u.password = ?, u.fullname = ?, " +
+        String query = "UPDATE users AS u SET u.email = ?, u.password = ?, u.fullname = ?, " +
                 "u.avatar = ?, u.role_id = ? WHERE u.id = ?";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
@@ -252,7 +252,7 @@ public class UserRepository {
     public int countUserByRoleId(int roleId){
         int count = 0;
         Connection connection = MySqlConfig.getMySQLConnection();
-        String query = "SELECT count(*) as count FROM crm_app.users AS u WHERE u.role_id = ?";
+        String query = "SELECT count(*) as count FROM users AS u WHERE u.role_id = ?";
 
         try {
             PreparedStatement statement = connection.prepareStatement(query);
